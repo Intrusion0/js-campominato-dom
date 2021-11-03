@@ -102,7 +102,7 @@ function play(difficult, classes) {
     
 
     for (let i = 1; i <= difficult; i++) {
-        let squareCont = generateElement("div", "square", "square-" + classes);
+        let squareCont = generateElement("div", "square", "square-" + classes, i);
 
         squareCont.addEventListener("click", function() {
             countClicks += 1;
@@ -122,10 +122,17 @@ function play(difficult, classes) {
             if (foundBomb === true) {
                 this.classList.add('square-bomb');
                 resultGame.append(`Hai perso! :-( Hai totalizzato ${countClicks - 1} punti`);
-                for (let i = 0; i < bombNum.length; i++) {
-                    this.classList.add('square-bomb');
-                }
-                squareCont.removeEventListener("click" , play);
+                // STOPPARE GIOCO
+                
+                // for (let i = 0; i < bombNum.length; i++) {
+                //     this.classList.add('square-bomb');
+                // }
+                // squareCont.removeEventListener("click" , play);
+            }
+
+            if (countClicks == (difficult - 16)) {
+                resultGame.append(`Hai vinto! :-) Hai totalizzato ${countClicks} punti`);
+                // STOPPARE GIOCO
             }
         }
         );
@@ -134,9 +141,10 @@ function play(difficult, classes) {
 }
 
 // Permette di creare un elemento e aggiungere fino a 2 classi.
-const generateElement = (inputElement, inputClass, inputClassPlus) => {
+const generateElement = (inputElement, inputClass, inputClassPlus, inputAttrubute) => {
     let myCreateElement = document.createElement(inputElement); 
     myCreateElement.classList.add(inputClass, inputClassPlus);
+    myCreateElement.id = inputAttrubute;
     return myCreateElement
 }
 
@@ -169,3 +177,11 @@ function genNumBomb(rangeNum) {
 //     }
 //     return this;
 // }
+
+
+// RICORDARE 
+/*
+    eleDiv.setAttribute("id" , i);
+    let prova = eleDiv.id;
+    console.log(prova);
+*/
