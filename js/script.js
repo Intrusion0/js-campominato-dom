@@ -91,20 +91,19 @@ difficultGame.addEventListener("click", function() {
 // Genera le celle.
 function play(difficult, classes) {
     
+    resultGame.innerHTML = '';
     let countClicks = 0; // Contatore click
     let foundBomb = false;
 
-    if (document.querySelectorAll('.square').length) {
-        for (let j = 0; j < 100; j++) { // Da sistemare la condizione!!!!
-            document.querySelector('.square').remove();
-        }
-    }
-    
-
+    document.querySelectorAll('.square').forEach(element => element.remove());
+ 
     for (let i = 1; i <= difficult; i++) {
         let squareCont = generateElement("div", "square", "square-" + classes, i);
 
         squareCont.addEventListener("click", function() {
+
+            if (foundBomb) return; // Se la bomba è stata trovata esce, non esegue più nulla. 
+
             countClicks += 1;
             this.classList.add("square-active");
             squareCont.innerText = i;
@@ -121,18 +120,19 @@ function play(difficult, classes) {
 
             if (foundBomb === true) {
                 this.classList.add('square-bomb');
-                resultGame.append(`Hai perso! :-( Hai totalizzato ${countClicks - 1} punti`);
-                // STOPPARE GIOCO E FAR VISUALIZZARE LE ALTRE BOMBE
-                
-                // for (let i = 0; i < bombNum.length; i++) {
-                //      allBomb.classList.add('square-bomb');
-                // }
-                // squareCont.removeEventListener("click" , play);
+
+                for (let a = 1; a <= difficult; a++) {
+                    if (bombNum.includes(a)) {
+                        let bomb = document.querySelectorAll('.square')[a];
+                        bomb.classList.add('square-bomb');
+                        bomb.innerText = a;
+                    }
+                }
+                resultGame.innerHTML = `Hai perso! :-( Hai totalizzato ${countClicks - 1} punti`;
             }
 
             if (countClicks == (difficult - 16)) {
-                resultGame.append(`Hai vinto! :-) Hai totalizzato ${countClicks} punti`);
-                // STOPPARE GIOCO
+                resultGame.innerHTML = `Hai vinto! :-) Hai totalizzato ${countClicks} punti`;
             }
         }
         );
@@ -152,7 +152,7 @@ const generateElement = (inputElement, inputClass, inputClassPlus, inputAttrubut
 function genNumBomb(rangeNum) {
 
     let i = 0;
-    bombNum.length = 0; // Questo serve per svuotare l'array quando cambio difficoltà, in modo che possa generare altri 16 numeri random e aggiungerli nuovamente.
+    bombNum = [];
 
     while (bombNum.length < 16) {
         var randomNumBomb = Math.floor(Math.random() * rangeNum) + 1;
@@ -164,24 +164,3 @@ function genNumBomb(rangeNum) {
     }
     return bombNum;
 }
-
-// Controllare se il numero cliccato sia nella lista dei numeri random
-
-/* DA CONTROLLARE!!!! */
-
-// const checkNum = (number) => {
-//     for (let j = 0; j < bombNum.length; j++) {
-//         if (bombNum.indexOf(number) !== -1) {
-//             this.classList.add('square-bomb');
-//         } 
-//     }
-//     return this;
-// }
-
-
-// RICORDARE 
-/*
-    eleDiv.setAttribute("id" , i);
-    let prova = eleDiv.id;
-    console.log(prova);
-*/
