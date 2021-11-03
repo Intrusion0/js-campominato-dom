@@ -52,9 +52,9 @@ Al termine della partita il software deve scoprire tutte le bombe e comunicare i
 --DONE  2. Utilizzo una condizione per controllare se il numero cliccato è presente nella lista dei numeri generati
     --DONE  2.1 Se è presente nella lista dei numeri generati, allora la cella si colorerà di rosso e finisce la partita
     --DONE  2.2 Se non è presente nella lista dei numeri generati, allora la cella si colorerà di azzurro e l'utente potrà continuare a cliccare sulle altre celle.
-3. Una volta finita la partita, manderò un messaggio in output che conterrà il numero di click effettuati sulle celle azzurre (che sarà il punteggio), e farò visualizzare tutte le altre bombe presenti.
-    3.1 Se l'utente non colpirà nessuna bomba e finirà il gioco, apparirà a schermo: Hai vinto!
-    3.2 Se l'utente colpirà un bomba, apparirà a schermo il punteggio che ha realizzato e visualizzerà le altre bombe.
+--DONE  3. Una volta finita la partita, manderò un messaggio in output che conterrà il numero di click effettuati sulle celle azzurre (che sarà il punteggio), e farò visualizzare tutte le altre bombe presenti.
+    --DONE  3.1 Se l'utente non colpirà nessuna bomba e finirà il gioco, apparirà a schermo: Hai vinto!
+    --DONE  3.2 Se l'utente colpirà un bomba, apparirà a schermo il punteggio che ha realizzato e visualizzerà le altre bombe.
 
 */
 
@@ -122,10 +122,10 @@ function play(difficult, classes) {
             if (foundBomb === true) {
                 this.classList.add('square-bomb');
                 resultGame.append(`Hai perso! :-( Hai totalizzato ${countClicks - 1} punti`);
-                // STOPPARE GIOCO
+                // STOPPARE GIOCO E FAR VISUALIZZARE LE ALTRE BOMBE
                 
                 // for (let i = 0; i < bombNum.length; i++) {
-                //     this.classList.add('square-bomb');
+                //      allBomb.classList.add('square-bomb');
                 // }
                 // squareCont.removeEventListener("click" , play);
             }
