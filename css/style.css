@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* header */
+header, main {
+    width: 100%;
+    height: auto;
+    background-color: #b6cda4;
+}
+
+.container, .container-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    margin: 0 auto;
+    height: 100%;
+}
+
+button {
+    width: 10%;
+    font-size: 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.container h1 {
+    padding: 10px;
+}
+
+/* main */
+.container-grid {
+    padding: 50px 150px;
+}
+
+#grid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    /* border: 2px solid white; */
+}
+
+.square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.square-easy {
+    height: 103px;
+    width: calc(100% / 10);
+}
+
+.square-medium {
+    height: 115px;
+    width: calc(100% / 9);
+}
+
+.square-difficult {
+    height: 147px;
+    width: calc(100% / 7);
+}
+
+.square-active {
+    background-color: lightblue;
+}
+
+.square-bomb {
+    background-color: red;
+}
