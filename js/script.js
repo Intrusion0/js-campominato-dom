@@ -121,11 +121,11 @@ function play(difficult, classes) {
             if (foundBomb === true) {
                 this.classList.add('square-bomb');
 
-                for (let a = 1; a <= difficult; a++) {
+                for (let a = 0; a < difficult; a++) {
                     if (bombNum.includes(a)) {
                         let bomb = document.querySelectorAll('.square')[a];
                         bomb.classList.add('square-bomb');
-                        bomb.innerText = a;
+                        bomb.innerText = a + 1;
                     }
                 }
                 resultGame.innerHTML = `Hai perso! :-( Hai totalizzato ${countClicks - 1} punti`;
