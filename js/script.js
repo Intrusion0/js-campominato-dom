@@ -39,8 +39,17 @@ Al termine della partita il software deve scoprire tutte le bombe e comunicare i
 */
 
 /*  SECONDA PARTE
-
-1.
+1. Genero 16 numeri casuali univoci
+    --DONE  1.1 Creo una funzione che conterrà tutto il procedimento e utilizzo un argomento. => function genNumBomb(rangeNum);
+        --DONE  1.1.1 L'argomento lo utilizzerò quando dovranno essere generati i numeri random, così saranno compresi tra 1 e la difficoltà, ovvero (100 - 81 - 49);
+    --DONE  1.2 Creo un array vuoto in cui conterrà i 16 numeri generati univoci. => let bombNum = [];
+    --DONE  1.3 Utilizzo un ciclo while che dovrà essere eseguito finchè la lunghezza dell'array arriva a 16 elementi  => while (bombNum.length < 16);
+    --DONE  1.4 Genero i numeri e li salvo in una variabile => Math.floor(Math.random() * rangeNum) + 1;
+    1.5 Utilizzo una condizione per controllare se i numeri generati sono doppioni => if bombNum.indexOf(randomNumBomb) === -1;
+        1.5.1 Utilizzo la funzione "indexOf" nella condizione. => .indexOf()
+    1.6 Se il numero non è doppione allora verrà pushato all'interno di un'array vuoto
+    1.7 Se il numero è doppione allora si ripeterà il ciclo while
+2.
 
 */
 
@@ -52,15 +61,18 @@ const mySquare = document.querySelector(".square");
 
 easyGame.addEventListener("click", function() {
     play(100, 'easy');
+    console.log(genNumBomb(100));
 });
 
 mediumGame.addEventListener("click", function() {
     play(81, 'medium');
+    console.log(genNumBomb(81));
 });
 
 
 difficultGame.addEventListener("click", function() {
     play(49, 'difficult');
+    console.log(genNumBomb(49));
 });
 
 
@@ -95,3 +107,17 @@ const generateElement = (inputElement, inputClass, inputClassPlus) => {
 }
 
 // Genera 16 numeri casuali univoci
+function genNumBomb(rangeNum) {
+    let bombNum = [];
+    let i = 0;
+
+    while (bombNum.length < 16) {
+        var randomNumBomb = Math.floor(Math.random() * rangeNum) + 1;
+
+        if (bombNum.indexOf(randomNumBomb) === -1) {
+            bombNum.push(randomNumBomb);
+        }
+        i++
+    }
+    return bombNum;
+}
