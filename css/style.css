@@ -8,7 +8,7 @@
 header, main {
     width: 100%;
     height: auto;
-    background-color: #b6cda4;
+    background-color: #d2e5c2;
 }
 
 .container, .container-grid {
@@ -32,6 +32,14 @@ button {
 }
 
 /* main */
+.result {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    padding-top: 25px;
+}
+
 .container-grid {
     padding: 50px 150px;
 }
@@ -40,14 +48,14 @@ button {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    /* border: 2px solid white; */
+    /* border: 4px solid #626262; */
 }
 
 .square {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid white;
+    border: 2px solid #626262;
     cursor: pointer;
 }
 

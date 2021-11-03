@@ -45,11 +45,16 @@ Al termine della partita il software deve scoprire tutte le bombe e comunicare i
     --DONE  1.2 Creo un array vuoto in cui conterrà i 16 numeri generati univoci. => let bombNum = [];
     --DONE  1.3 Utilizzo un ciclo while che dovrà essere eseguito finchè la lunghezza dell'array arriva a 16 elementi  => while (bombNum.length < 16);
     --DONE  1.4 Genero i numeri e li salvo in una variabile => Math.floor(Math.random() * rangeNum) + 1;
-    1.5 Utilizzo una condizione per controllare se i numeri generati sono doppioni => if bombNum.indexOf(randomNumBomb) === -1;
-        1.5.1 Utilizzo la funzione "indexOf" nella condizione. => .indexOf()
-    1.6 Se il numero non è doppione allora verrà pushato all'interno di un'array vuoto
-    1.7 Se il numero è doppione allora si ripeterà il ciclo while
-2.
+    --DONE  1.5 Utilizzo una condizione per controllare se i numeri generati sono doppioni => if bombNum.indexOf(randomNumBomb) === -1;
+        --DONE  1.5.1 Utilizzo la funzione "indexOf" nella condizione. => .indexOf()
+    --DONE  1.6 Se il numero non è doppione allora verrà pushato all'interno di un'array vuoto
+    --DONE  1.7 Se il numero è doppione allora si ripeterà il ciclo while
+--DONE  2. Utilizzo una condizione per controllare se il numero cliccato è presente nella lista dei numeri generati
+    --DONE  2.1 Se è presente nella lista dei numeri generati, allora la cella si colorerà di rosso e finisce la partita
+    --DONE  2.2 Se non è presente nella lista dei numeri generati, allora la cella si colorerà di azzurro e l'utente potrà continuare a cliccare sulle altre celle.
+3. Una volta finita la partita, manderò un messaggio in output che conterrà il numero di click effettuati sulle celle azzurre (che sarà il punteggio), e farò visualizzare tutte le altre bombe presenti.
+    3.1 Se l'utente non colpirà nessuna bomba e finirà il gioco, apparirà a schermo: Hai vinto!
+    3.2 Se l'utente colpirà un bomba, apparirà a schermo il punteggio che ha realizzato e visualizzerà le altre bombe.
 
 */
 
@@ -58,21 +63,26 @@ const easyGame = document.getElementById("easy-btn");
 const mediumGame = document.getElementById("medium-btn");
 const difficultGame = document.getElementById("difficult-btn");
 const mySquare = document.querySelector(".square");
+const resultGame = document.querySelector('.result');
+let bombNum = [];
 
 easyGame.addEventListener("click", function() {
     play(100, 'easy');
-    console.log(genNumBomb(100));
+    genNumBomb(100)
+    console.log(bombNum);
 });
 
 mediumGame.addEventListener("click", function() {
     play(81, 'medium');
-    console.log(genNumBomb(81));
+    genNumBomb(81)
+    console.log(bombNum);
 });
 
 
 difficultGame.addEventListener("click", function() {
     play(49, 'difficult');
-    console.log(genNumBomb(49));
+    genNumBomb(49)
+    console.log(bombNum);
 });
 
 
@@ -80,6 +90,9 @@ difficultGame.addEventListener("click", function() {
 
 // Genera le celle.
 function play(difficult, classes) {
+    
+    let countClicks = 0; // Contatore click
+    let foundBomb = false;
 
     if (document.querySelectorAll('.square').length) {
         for (let j = 0; j < 100; j++) { // Da sistemare la condizione!!!!
@@ -87,13 +100,34 @@ function play(difficult, classes) {
         }
     }
     
+
     for (let i = 1; i <= difficult; i++) {
         let squareCont = generateElement("div", "square", "square-" + classes);
+
         squareCont.addEventListener("click", function() {
-                this.classList.add("square-active");
-                squareCont.innerText = i;
-                console.log("click");
+            countClicks += 1;
+            this.classList.add("square-active");
+            squareCont.innerText = i;
+            console.log(countClicks);
+
+            // Controllo se il numero cliccato è presente nell'array
+            for (let j = 0; j < bombNum.length; j++) {
+                if (bombNum.indexOf(i) !== -1) {
+                    foundBomb = true;
+                } else {
+                    foundBomb = false;
+                }
             }
+
+            if (foundBomb === true) {
+                this.classList.add('square-bomb');
+                resultGame.append(`Hai perso! :-( Hai totalizzato ${countClicks - 1} punti`);
+                for (let i = 0; i < bombNum.length; i++) {
+                    this.classList.add('square-bomb');
+                }
+                squareCont.removeEventListener("click" , play);
+            }
+        }
         );
         gridCont.appendChild(squareCont);
     }
@@ -108,8 +142,9 @@ const generateElement = (inputElement, inputClass, inputClassPlus) => {
 
 // Genera 16 numeri casuali univoci
 function genNumBomb(rangeNum) {
-    let bombNum = [];
+
     let i = 0;
+    bombNum.length = 0; // Questo serve per svuotare l'array quando cambio difficoltà, in modo che possa generare altri 16 numeri random e aggiungerli nuovamente.
 
     while (bombNum.length < 16) {
         var randomNumBomb = Math.floor(Math.random() * rangeNum) + 1;
@@ -121,3 +156,16 @@ function genNumBomb(rangeNum) {
     }
     return bombNum;
 }
+
+// Controllare se il numero cliccato sia nella lista dei numeri random
+
+/* DA CONTROLLARE!!!! */
+
+// const checkNum = (number) => {
+//     for (let j = 0; j < bombNum.length; j++) {
+//         if (bombNum.indexOf(number) !== -1) {
+//             this.classList.add('square-bomb');
+//         } 
+//     }
+//     return this;
+// }
